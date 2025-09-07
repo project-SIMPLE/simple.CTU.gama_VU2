@@ -1,0 +1,5 @@
+Dùng chuẩn EPSG:32648 – WGS 84 / UTM zone 48N
+Top-left (góc trên trái): (106.3145143, 10.0002642)
+Top-right (góc trên phải): (105.8301012, 10.0002642)
+Bottom-left (góc dưới trái): (106.3145143, 9.4933519)
+Bottom-right (góc dưới phải): (105.8301012, 9.4933519)
