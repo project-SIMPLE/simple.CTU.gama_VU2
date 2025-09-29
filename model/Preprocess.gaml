@@ -16,7 +16,7 @@ global {
 		create river from: river0_shape_file {
 			ask cell overlapping self {
 				grid_value <- grid_value - 20;
-				color <- rgb(grid_value-50);
+				color <- rgb(grid_value - 50);
 			}
 
 		}
@@ -27,17 +27,19 @@ global {
 }
 
 species river {
-	aspect default{
-		draw shape wireframe:true;
+
+	aspect default {
+		draw shape wireframe: true;
 	}
+
 }
 
 grid cell width: size_grid height: size_grid {
 
 	init {
 	//		write ""+ self.grid_x+" "+self.grid_y;
-		grid_value <- float(size_grid * 10 - (grid_x*5));
-		color <- rgb(grid_value-50);
+		grid_value <- float(size_grid * 10 - (grid_x * 5));
+		color <- rgb(grid_value - 50);
 	}
 
 	aspect default {
@@ -51,7 +53,7 @@ experiment main {
 	output {
 		display d1 {
 			grid cell border: #black;
-						species river;
+			species river;
 		}
 
 		display d2 {
