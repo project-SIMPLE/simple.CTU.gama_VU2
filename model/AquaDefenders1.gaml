@@ -23,7 +23,7 @@ global {
 	// Tham số mô phỏng
 	float diffusion_rate   <- 0.7;   // tăng để flow nhanh hơn
 	float total_input      <- 0.3;   // tổng lượng input (constant)
-	float input_water      <- 0.2;   // lượng nước ngọt thêm vào mỗi bước (sẽ được parameter hóa)
+	float input_water      <- 0.2;   // lượng nước ngọt thêm vào mỗi bước (tham số sẽ được nhập vào)
 	float input_salt_water <- 0.1;   // lượng nước mặn thêm vào mỗi bước (tự động tính)
 
 	init {
@@ -43,7 +43,7 @@ global {
 			freshwater <- 0.5;
 			saltwater  <- 0.0;
 
-			// nếu là ô sông: nhiều nước ngọt ban đầu, nhưng vẫn cho mặn xâm nhập
+			// ô sông
 			if (self overlaps first(river)) {
 				freshwater <- 0.8;  // giảm nhẹ để dễ nhận mặn hơn
 				saltwater  <- 0.0;
@@ -52,14 +52,14 @@ global {
 			// nếu là ô biên phải: nước mặn từ biển
 			if (grid_x = 30 - 1) {
 				freshwater <- 0.5;
-				saltwater  <- 0.15;  // tăng để gradient mặn rõ hơn
+				saltwater  <- 0.15;  // tăng để độ mặn rõ hơn
 			}
 
 			neighbour_cells <- (self neighbors_at 1);
 		}
 	}
 
-	// Xác định nguồn nước
+	// Xác định nguồn nước - 30 ô cell
 	action identify_sources {
 		source_fresh_cells <- cell where (each.grid_x = 0);
 		source_salt_cells  <- cell where (each.grid_x = 30 - 1);
@@ -151,7 +151,7 @@ experiment AquaDefenders type: gui {
 			grid cell border: #black;
 			species river;
 		}
-		// Thêm monitor để theo dõi giá trị (user có thể inspect global để thay đổi động)
+		// Theo dõi giá trị 
 		monitor "Input Fresh" value: input_water;
 		monitor "Input Salt" value: input_salt_water;
 	}
