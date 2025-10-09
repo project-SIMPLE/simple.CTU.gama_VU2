@@ -20,7 +20,7 @@ global {
 	list<cell> source_fresh_cells;  // biên trái
 	list<cell> source_salt_cells;   // biên phải
 	list<cell> river_cells;         // ô thuộc sông
-float step<-1#day;
+	float step<-1#day;
 	// Tham số mô phỏng
 	float diffusion_rate   <- 0.7;   // tăng để flow nhanh hơn
 	float total_input      <- 0.3;   // tổng lượng input (constant)
@@ -29,7 +29,24 @@ float step<-1#day;
 
 	init {
 		create river from: river_file;
-		create farm from: farm_file;
+		//create farm from: farm_file;
+		// ví dụ: tạo 4 vùng trồng
+        create farm from: farm_file number: 4 {
+            if (self.index = 0) { crop_type <- "rice"; season_start <- 0; season_end <- 90; }
+            if (self.index = 1) { crop_type <- "corn"; season_start <- 30; season_end <- 120; }
+            if (self.index = 2) { crop_type <- "potato"; season_start <- 60; season_end <- 150; }
+            if (self.index = 3) { crop_type <- "cassava"; season_start <- 100; season_end <- 200; }
+
+            // Tạo crop trong vùng plot
+            create crop {
+                crop_type <- myself.crop_type;
+                if (crop_type = "rice") { img <- file("../includes/images/crops/icon_banana.png"); }
+                if (crop_type = "corn") { img <- file("../includes/images/crops/icon_banana.png"); }
+                if (crop_type = "potato") { img <- file("../includes/images/crops/icon_banana.png"); }
+                if (crop_type = "cassava") { img <- file("../includes/images/crops/icon_banana.png"); }
+                location <- one_of(myself); // đặt crop vào trong geometry của farm
+            }
+		}
 		do init_cells;
 		do identify_sources;
 
@@ -45,7 +62,7 @@ float step<-1#day;
 			freshwater <- 0.5;
 			saltwater  <- 0.0;
 
-			// ô sông
+			// nếu là ô sông: nhiều nước ngọt ban đầu, nhưng vẫn cho mặn xâm nhập
 			if (self overlaps first(river)) {
 				freshwater <- 0.8;  // giảm nhẹ để dễ nhận mặn hơn
 				saltwater  <- 0.0;
@@ -54,14 +71,14 @@ float step<-1#day;
 			// nếu là ô biên phải: nước mặn từ biển
 			if (grid_x = 30 - 1) {
 				freshwater <- 0.5;
-				saltwater  <- 0.15;  // tăng để độ mặn rõ hơn
+				saltwater  <- 0.15;  // tăng để gradient mặn rõ hơn
 			}
 
 			neighbour_cells <- (self neighbors_at 1);
 		}
 	}
 
-	// Xác định nguồn nước - 30 ô cell
+	// Xác định nguồn nước
 	action identify_sources {
 		source_fresh_cells <- cell where (each.grid_x = 0);
 		source_salt_cells  <- cell where (each.grid_x = 30 - 1);
@@ -148,18 +165,33 @@ species river {
 }
 
 species farm {
+	string crop_type;  // loại cây
+    int season_start;
+    int season_end;
+    
 	aspect default {
 		draw shape color: #green;
+		draw crop_type color: #black;
 	}
 }
 
-experiment AquaDefenders type: gui {
+species crop {
+    string crop_type;
+    file img;
+
+    aspect default {
+		draw circle(1.0) color: #orange ;
+    }
+}
+
+experiment AquaDefenders3 type: gui {
 	parameter "Input Water Fresh (%)" var: input_water min: 0.0 max: total_input step: 0.01 category: "Simulation Parameters";
 	output {
 		display map type: 2d {
 			grid cell border: #black;
 			species river;
 			species farm;
+			species crop;
 		}
 		// Thêm monitor để theo dõi giá trị (user có thể inspect global để thay đổi động)
 		monitor "Input Fresh" value: input_water;
