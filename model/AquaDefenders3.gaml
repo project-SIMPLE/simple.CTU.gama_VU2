@@ -31,11 +31,24 @@ global {
 		create river from: river_file;
 		//create farm from: farm_file;
 		// ví dụ: tạo 4 vùng trồng
-        create farm from: farm_file number: 4 {
-            if (self.index = 0) { crop_type <- "rice"; season_start <- 0; season_end <- 90; }
-            if (self.index = 1) { crop_type <- "corn"; season_start <- 30; season_end <- 120; }
-            if (self.index = 2) { crop_type <- "potato"; season_start <- 60; season_end <- 150; }
-            if (self.index = 3) { crop_type <- "cassava"; season_start <- 100; season_end <- 200; }
+        create farm from: farm_file number: 17 {
+            if (self.index = 0) { crop_type <- "rice0"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_trai cam.png");}
+            if (self.index = 1) { crop_type <- "rice1"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_bap.png");}
+            if (self.index = 2) { crop_type <- "corn2"; season_start <- 30; season_end <- 120; img <- image_file("../includes/images/crops/icon_cai bap.png");}
+            if (self.index = 3) { crop_type <- "potato3"; season_start <- 60; season_end <- 150; img <- image_file("../includes/images/aquatic/icon_ca chep.png");}
+            if (self.index = 4) { crop_type <- "cassava4"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_cay mia.png");}
+            if (self.index = 5) { crop_type <- "cassava5"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_chom chom.png");}
+            if (self.index = 6) { crop_type <- "cassava6"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_ca dieu hong.png");}
+            if (self.index = 7) { crop_type <- "cassava7"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_de.png");}
+            if (self.index = 8) { crop_type <- "cassava8"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_chicken.png");}
+            if (self.index = 9) { crop_type <- "cassava9"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_pig.png");}
+            if (self.index = 10) { crop_type <- "cassava10"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thanh long.png");}
+            if (self.index = 11) { crop_type <- "cassava11"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thom.png");}
+            if (self.index = 12) { crop_type <- "cassava12"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_dua nuoc_1.png");}
+            if (self.index = 13) { crop_type <- "cassava13"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom su.png");}
+            if (self.index = 14) { crop_type <- "cassava14"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_banana.png"); }
+            if (self.index = 15) { crop_type <- "cassava15"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom cang xanh.png");}   
+            if (self.index = 16) { crop_type <- "cassava16"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_coconut.png"); }      
 
             // Tạo crop trong vùng plot
             create crop {
@@ -166,12 +179,18 @@ species river {
 
 species farm {
 	string crop_type;  // loại cây
+	image_file img;
     int season_start;
     int season_end;
     
 	aspect default {
-		draw shape color: #green;
-		draw crop_type color: #black;
+		draw shape color: #green border: #darkgreen;
+		//draw crop_type color: #black;
+		if (img != nil) {
+            draw img size: 200;
+        } else {
+            draw crop_type color: #black;
+        }
 	}
 }
 
