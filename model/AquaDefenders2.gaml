@@ -6,7 +6,7 @@
 */
 
 
-model AquaDefenders1
+model AquaDefenders2
 
 global {
 	file dem_file   <- file("../results/grid.tif"); 
@@ -153,7 +153,7 @@ species farm {
 	}
 }
 
-experiment AquaDefenders type: gui {
+experiment AquaDefenders2 type: gui {
 	parameter "Input Water Fresh (%)" var: input_water min: 0.0 max: total_input step: 0.01 category: "Simulation Parameters";
 	output {
 		display map type: 2d {

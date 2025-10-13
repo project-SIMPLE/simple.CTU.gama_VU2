@@ -6,7 +6,7 @@
 */
 
 
-model AquaDefenders1
+model AquaDefenders3
 
 global {
 	file dem_file   <- file("../results/grid.tif"); 
