@@ -5,7 +5,6 @@
 * Tags: 
 */
 
-
 model AquaDefenders1
 
 global {
@@ -32,23 +31,23 @@ global {
 		//create farm from: farm_file;
 		// ví dụ: tạo 4 vùng trồng
         create farm from: farm_file number: 17 {
-            if (self.index = 0) { crop_type <- "rice0"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_trai cam.png");}
-            if (self.index = 1) { crop_type <- "rice1"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_bap.png");}
-            if (self.index = 2) { crop_type <- "corn2"; season_start <- 30; season_end <- 120; img <- image_file("../includes/images/crops/icon_cai bap.png");}
-            if (self.index = 3) { crop_type <- "potato3"; season_start <- 60; season_end <- 150; img <- image_file("../includes/images/aquatic/icon_ca chep.png");}
-            if (self.index = 4) { crop_type <- "cassava4"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_cay mia.png");}
-            if (self.index = 5) { crop_type <- "cassava5"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_chom chom.png");}
-            if (self.index = 6) { crop_type <- "cassava6"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_ca dieu hong.png");}
-            if (self.index = 7) { crop_type <- "cassava7"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_de.png");}
-            if (self.index = 8) { crop_type <- "cassava8"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_chicken.png");}
-            if (self.index = 9) { crop_type <- "cassava9"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_pig.png");}
-            if (self.index = 10) { crop_type <- "cassava10"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thanh long.png");}
-            if (self.index = 11) { crop_type <- "cassava11"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thom.png");}
-            if (self.index = 12) { crop_type <- "cassava12"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_dua nuoc_1.png");}
-            if (self.index = 13) { crop_type <- "cassava13"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom su.png");}
-            if (self.index = 14) { crop_type <- "cassava14"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_banana.png"); }
-            if (self.index = 15) { crop_type <- "cassava15"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom cang xanh.png");}   
-            if (self.index = 16) { crop_type <- "cassava16"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_coconut.png"); }      
+            if (self.index = 0) { crop_type <- "cam"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_trai cam.png");}
+            if (self.index = 1) { crop_type <- "bap"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_bap.png");}
+            if (self.index = 2) { crop_type <- "bap cai"; season_start <- 30; season_end <- 120; img <- image_file("../includes/images/crops/icon_cai bap.png");}
+            if (self.index = 3) { crop_type <- "ca chep"; season_start <- 60; season_end <- 150; img <- image_file("../includes/images/aquatic/icon_ca chep.png");}
+            if (self.index = 4) { crop_type <- "mia"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_cay mia.png");}
+            if (self.index = 5) { crop_type <- "chom chom"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_chom chom.png");}
+            if (self.index = 6) { crop_type <- "ca dieu hong"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_ca dieu hong.png");}
+            if (self.index = 7) { crop_type <- "de"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_de.png");}
+            if (self.index = 8) { crop_type <- "ga"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_chicken.png");}
+            if (self.index = 9) { crop_type <- "heo"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_pig.png");}
+            if (self.index = 10) { crop_type <- "thanh long"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thanh long.png");}
+            if (self.index = 11) { crop_type <- "thom"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thom.png");}
+            if (self.index = 12) { crop_type <- "dua nuoc"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_dua nuoc_1.png");}
+            if (self.index = 13) { crop_type <- "tom su"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom su.png");}
+            if (self.index = 14) { crop_type <- "banana"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_banana.png"); }
+            if (self.index = 15) { crop_type <- "tom cang xanh"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom cang xanh.png");}   
+            if (self.index = 16) { crop_type <- "dua"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_coconut.png"); }      
 
             // Tạo crop trong vùng plot
             create crop {
@@ -121,6 +120,13 @@ global {
 			do update_color;
 		}
 	}
+
+	// Cập nhật salinity cho farm dựa trên cell overlapping (sau diffusion)
+	reflex update_farm_salinity {
+		ask farm {
+			do update_salinity;
+		}
+	}
 }
 
 grid cell file: dem_file neighbors: 8 use_regular_agents: false {
@@ -181,37 +187,35 @@ species farm {
 	string crop_type;  // loại cây
 	image_file img;	
     int season_start;
-    int season_end;  
-    
+    int season_end;
     float salinity init: 0.0;
     
     // Cập nhật salinity dựa trên cell overlapping
     action update_salinity {
-    	write salinity;
-//        list<cell> overlapping_cells <- cell where (each overlaps self);
-//        if (!empty(overlapping_cells)) {
-//            salinity <- mean(overlapping_cells collect (each.saltwater / (each.freshwater + each.saltwater + 0.0001)));
-//            
-//        }
-    }  
+    	//Tìm các ô farm chồng lấp lên 
+        list<cell> overlapping_cells <- cell where (each overlaps self);
+        //Tính salinity cho từng cell (tỷ lệ muối/nước tổng). Lấy trung bình.
+        if (!empty(overlapping_cells)) {
+            salinity <- mean(overlapping_cells collect (each.saltwater / (each.freshwater + each.saltwater + 0.0001)));
+        }
+    }
     
 	aspect default {
 		draw shape color: #green border: #darkgreen;
-		//draw crop_type color: #black;
 		
 		// Vị trí image
 		point img_pos <- location + {0, -50};
 		if (img != nil) {
-            draw img  at: img_pos size: 50#px;
+            draw img  at: img_pos size: 50#px anchor: #center;
         }
         
         // Vị trí text crop_type phía trên
-		point text_pos <- location + {-50, 50};		
-		draw crop_type at: text_pos color: #black font: font("Arial", 15) ;
+		point text_pos <- location + {0, 50};		
+		draw crop_type at: text_pos color: #black font: font("Arial", 15) anchor: #center;
 		
 		// Vị trí salinity phía dưới crop_type
-		point sal_pos <- location + {-50, 90};
-		draw "Sal: " + round(salinity * 100) / 100 at: sal_pos color: #red font: font("Arial", 10);
+		point sal_pos <- location + {0, 90};
+		draw "Sal: " + round(salinity * 100) / 100 at: sal_pos color: #red font: font("Arial", 10) anchor: #center;
 	}
 }
 
@@ -224,7 +228,7 @@ species crop {
     }
 }
 
-experiment AquaDefenders3 type: gui {
+experiment AquaDefenders4 type: gui {
 	parameter "Input Water Fresh (%)" var: input_water min: 0.0 max: total_input step: 0.01 category: "Simulation Parameters";
 	output {
 		display map type: 2d {
@@ -238,4 +242,3 @@ experiment AquaDefenders3 type: gui {
 		monitor "Input Salt" value: input_salt_water;
 	}
 }
-
