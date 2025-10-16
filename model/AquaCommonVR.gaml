@@ -1,113 +1,122 @@
 /**
- * Name: CommonVR
- * Based on the internal empty template. 
- * Author: patricktaillandier (rewritten for AquaDefenders5 compatibility)
- * Tags: 
- */
+* Name: CommonVR
+* Based on AquaDefenders5 for sending salinity and crop_type. 
+* Author: patricktaillandier (minhloan update rewritten for AquaDefenders5 compatibility)
+* Tags: 
+*/
+
+
 model CommonVR
 
-global {
-    // Các global variables cần thiết cho Unity integration
-    // Constants cho game (đơn giản hóa cho AquaDefenders5)
-    int duration_preparation <- 60;  // Thời gian chuẩn bị
-    int duration_defense <- 300;     // Thời gian phòng thủ
-    float precision <- 1.0;          // Độ chính xác cho tọa độ
-    bool let_gama_manage_game <- false;  // GAMA quản lý game?
-    bool collaborating <- false;     // Chế độ hợp tác? (không dùng trong Aqua)
-    
-    // Thời gian hiện tại cho defense
-    float current_time_def <- 0.0;
-    
-    // Các rates refresh (loại bỏ nếu không cần, giữ cho tương thích)
-    int pumper_rate_refresh_rate <- 10;    // Không dùng
-    int enemy_genetation_rate_refresh_rate <- 5;  // Không dùng
-    int update_subsidence_refresh_rate <- 20;     // Không dùng
+import "AquaDefenders5.gaml"
+global { 
+	bool let_gama_manage_game ;
+	int duration_preparation <- 1; //in seconds;
+	int duration_defense<- 240; //in seconds;
 }
 
-// Loại bỏ model keyword để làm file import thuần túy, chỉ định nghĩa species và global
+global {
+    // Define update_salinity_refresh_rate if not present in Global.gaml
+    float update_salinity_refresh_rate <- 10.0; // Refresh every 10 cycles (adjustable)
+}
 
 species unity_linker parent: abstract_unity_linker {
-    //name of the species used to represent a Unity player
+    // Name of the species used to represent a Unity player
     string player_species <- string(unity_player);
     float min_player_position_update_duration <- 0.1;
 
-    //in this model, information about other player will be automatically sent to the Player at every step, so we set do_info_world to true
+    // Do not send world info automatically, only specific data (salinity, crop_type)
     bool do_send_world <- false;
 
-    //max number of players that can play the game
-    int max_num_players <- 99999;
+    // Max and min number of players
+    int max_num_players <- 4; 
+    int min_num_players <- 1;
 
-    //min number of players to start the simulation
-    int min_num_players <- 99999;
-    list<point> init_locations <- [any_location_in(world) + {0, 0, 1}];
+    // Initial locations for players
+    list<point> init_locations <- farm collect (any_location_in(each) + {0, 0, 1});
 
+    // Handle new player connection
     action new_connection (string id) {
-        current_time_def <- gama.machine_time + (duration_defense + duration_preparation) * 1000.0;
         if (id in player_agents.keys) {
             if (not let_gama_manage_game) {
                 do restart(id);
                 ask unity_player(player_agents[id]) {
                     do die;
                 }
-
                 remove key: id from: player_agents;
                 do create_player(id);
-            } else {
             }
-
         }
-
     }
 
+    // Restart a player's farm state
     action restart (string id) {
         unity_player Pl <- player_agents[id];
-        // Reset simulation state cho Aqua: có thể reset diffusion hoặc salinity nếu cần
-        // Ví dụ: ask farm { salinity <- 0.0; }
+        ask Pl.myfarm {
+            salinity <- 0.0; // Reset salinity
+            // Note: crop_type is not reset as it is fixed in AquaDefenders5
+        }
         Pl.ready_to_start <- false;
     }
 
+    // Change player state
     action change_state (string idP, string new_state) {
         unity_player Pl <- player_agents[idP];
         Pl.current_state <- new_state;
     }
 
+    // Mark player as ready
     action player_ready (string idP) {
         unity_player Pl <- player_agents[idP];
         Pl.ready_to_start <- true;
     }
 
+    // Handle player finishing the game
     action player_finish_game (string idP) {
         write "END FOR " + idP;
         if (let_gama_manage_game) {
             unity_player Pl <- player_agents[idP];
             Pl.finish_game <- true;
         }
-
     }
 
+    // Notify players to start
     reflex let_player_start when: not empty(unity_player where !each.ready_to_start) {
         if (not let_gama_manage_game) {
             do send_message(unity_player where !each.ready_to_start, ["readyToStart"::""]);
         } else {
             do send_message(unity_player where !each.ready_to_start, ["startGame"::true, "time_prep"::duration_preparation, "time_def"::duration_defense]);
         }
-
     }
 
+    // End game sequence
     reflex end_sequence when: (let_gama_manage_game) and empty(unity_player where not each.finish_game) {
         write "END OF GAME";
         ask unity_player {
             finish_game <- false;
         }
-
-        current_time_def <- 0.0;
         ask world {
             do pause;
         }
-
     }
 
-    // Giữ toGAMACoordinate nếu cần tọa độ Unity -> GAMA
+    // Send salinity and crop_type information for each farm
+    reflex send_salinity_and_crop_type when: every(update_salinity_refresh_rate #cycle) {
+        ask unity_player where not (dead(each) and each.ready_to_start) {
+            float salinity_value <- myfarm.salinity with_precision 2;
+            string crop_type_value <- myfarm.crop_type;
+            int farm_id <- myfarm.index;
+            ask myself {
+                do send_message([myself], [
+                	"farmid"::farm_id,
+                    "salinity"::salinity_value,
+                    "crop_type"::crop_type_value
+                ]);
+            }
+        }
+    }
+
+    // Convert Unity coordinates to GAMA coordinates
     point toGAMACoordinate (int x, int y) {
         float xa <- 2426.08;
         float xb <- 181088.094;
@@ -116,31 +125,22 @@ species unity_linker parent: abstract_unity_linker {
         return {x / precision * xa + xb, y / precision * ya + yb};
     }
 
-    // Thêm action nếu cần cho Aqua, ví dụ: update_player_pos đơn giản
-    action update_player_pos (string idP, int x, int y, int o) {
-        unity_player Pl <- player_agents[idP];
-        Pl.location <- toGAMACoordinate(x, y);
-        Pl.heading <- float(o / precision) + 90;
-        Pl.to_display <- true;
-    }
-
+    // Update player position
+//    action update_player_pos (string idP, int x, int y, int o, int remaining_time, float score) {
+//        unity_player Pl <- player_agents[idP];
+//        Pl.location <- toGAMACoordinate(x, y);
+//        Pl.heading <- float(o / precision) + 90;
+//        Pl.to_display <- true;
+//        Pl.myfarm.current_score <- max(0, score);
+//    }
 }
 
 species unity_player parent: abstract_unity_player {
-    //size of the player in GAMA
     float player_size <- 10000.0;
-    // Loại bỏ myland vì không có GPlayLand trong Aqua
-
-    //color of the player in GAMA
-    rgb color <- #blue;
-
-    //vision cone distance in GAMA 
+    farm myfarm;
+    rgb color;
     float cone_distance <- 5.0 * player_size;
-
-    //vision cone amplitude in GAMA
     float cone_amplitude <- 90.0;
-
-    //rotation to apply from the heading of Unity to GAMA
     float player_rotation <- -90.0;
     bool to_display <- false;
     bool ready_to_start <- false;
@@ -148,8 +148,16 @@ species unity_player parent: abstract_unity_player {
     string current_state;
 
     init {
-        color <- #blue;
-        // Không cần Restart vì không có land
+        // Link player to farm using index (assuming name is the farm index)
+        myfarm <- first(farm where (each.index = int(name)));
+        color <- #green; // Use farm color or a default color
+        do restart(int(name));
+    }
+
+    action restart (int id) {
+        ask farm where (each.index = id) {
+            salinity <- 0.0;
+        }
     }
 
     float z_offset <- 2.0;
@@ -159,6 +167,6 @@ species unity_player parent: abstract_unity_player {
             draw square(player_size / 2.0) border: #black at: location + {0, 0, z_offset} color: color;
             draw player_perception_cone() border: #black color: rgb(color, 0.5);
         }
-
     }
 }
+
