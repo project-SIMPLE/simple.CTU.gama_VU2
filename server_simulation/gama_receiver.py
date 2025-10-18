@@ -2,6 +2,7 @@
 # -----------------
 # Cài thư viện cần thiết:
 # pip install websockets
+# python gama_receiver.py
 
 import asyncio
 import websockets

@@ -16,6 +16,7 @@ global {
 	geometry shape <- envelope(dem_file);
 	
 	string region_name <- "Default Region";
+	string session <- "";
 	
 	// Danh sách ô nguồn
 	list<cell> source_fresh_cells;  // biên trái
@@ -98,15 +99,18 @@ global {
 		source_salt_cells  <- cell where (each.grid_x = 30 - 1);
 		river_cells        <- cell where (each overlaps first(river));
 	}
+	
 
 	// Nạp thêm nước ngọt từ biên trái (sử dụng input_water hiện tại)
 	reflex add_freshwater {
 		// Điều chỉnh input theo mùa
 		int current_month <- month(current_date);
-		//Mùa mưa từ tháng 5-11
-		if (current_month >= 5 and current_month <= 11) {
+		//Mùa mưa từ tháng 5-10
+		if (current_month >= 5 and current_month <= 10) {
+			session <- "Rainy Season";
 			input_water <- 0.25;  // Mùa mưa: nước ngọt lớn
 		} else {
+			session <- "Dry Season";
 			input_water <- 0.05;  // Mùa khô: nước ngọt nhỏ
 		}
 		write input_water;
@@ -246,7 +250,12 @@ experiment AquaDefenders5 type: gui {
 			species river;
 			species farm;
 			species crop;
+			// Hiển thị mùa ở góc trên bên trái
+			graphics "Session" position: {0.01, 0.01} {
+				draw session color: #white font: font("Arial", 14 #px) anchor: #top_left;
+			}
 		}
+		
 		// Thêm monitor để theo dõi giá trị (user có thể inspect global để thay đổi động)
 		//monitor "Input Fresh" value: input_water;
 		//monitor "Input Salt" value: input_salt_water;
