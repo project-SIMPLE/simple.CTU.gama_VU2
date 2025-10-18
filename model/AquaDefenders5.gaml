@@ -34,23 +34,23 @@ global {
 		//create farm from: farm_file;
 		// ví dụ: tạo 4 vùng trồng
         create farm from: farm_file number: 17 {
-            if (self.index = 0) { crop_type <- "cam"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_trai cam.png");}
-            if (self.index = 1) { crop_type <- "bap"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_bap.png");}
-            if (self.index = 2) { crop_type <- "bap cai"; season_start <- 30; season_end <- 120; img <- image_file("../includes/images/crops/icon_cai bap.png");}
-            if (self.index = 3) { crop_type <- "ca chep"; season_start <- 60; season_end <- 150; img <- image_file("../includes/images/aquatic/icon_ca chep.png");}
-            if (self.index = 4) { crop_type <- "mia"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_cay mia.png");}
-            if (self.index = 5) { crop_type <- "chom chom"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_chom chom.png");}
-            if (self.index = 6) { crop_type <- "ca dieu hong"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_ca dieu hong.png");}
-            if (self.index = 7) { crop_type <- "de"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_de.png");}
-            if (self.index = 8) { crop_type <- "ga"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_chicken.png");}
-            if (self.index = 9) { crop_type <- "heo"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_pig.png");}
-            if (self.index = 10) { crop_type <- "thanh long"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thanh long.png");}
-            if (self.index = 11) { crop_type <- "thom"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thom.png");}
-            if (self.index = 12) { crop_type <- "dua nuoc"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_dua nuoc_1.png");}
-            if (self.index = 13) { crop_type <- "tom su"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom su.png");}
-            if (self.index = 14) { crop_type <- "banana"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_banana.png"); }
-            if (self.index = 15) { crop_type <- "tom cang xanh"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom cang xanh.png");}   
-            if (self.index = 16) { crop_type <- "dua"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_coconut.png"); }      
+            if (self.index = 0) { crop_type <- "Ổi-Guava"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_oi.png");}
+            if (self.index = 1) { crop_type <- "Bắp-Corn"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_bap.png");}
+            if (self.index = 2) { crop_type <- "Dâu tằm-Mulberry"; season_start <- 30; season_end <- 120; img <- image_file("../includes/images/crops/icon_dau tam.png");}
+            if (self.index = 3) { crop_type <- "Cá-Fish"; season_start <- 60; season_end <- 150; img <- image_file("../includes/images/aquatic/icon_ca chep.png");}
+            if (self.index = 4) { crop_type <- "Mía-Sugarcane"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_cay mia.png");}
+            if (self.index = 5) { crop_type <- "Lúa-Rice"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_lua.png");}
+            if (self.index = 6) { crop_type <- "Cá-Fish"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_ca dieu hong.png");}
+            if (self.index = 7) { crop_type <- "Dê-Goat"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_de.png");}
+            if (self.index = 8) { crop_type <- "Gà-Chicken"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_chicken.png");}
+            if (self.index = 9) { crop_type <- "Heo-Pig"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/animals/icon_pig.png");}
+            if (self.index = 10) { crop_type <- "Thanh Long-Dragon fruit"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thanh long.png");}
+            if (self.index = 11) { crop_type <- "Khóm-Pineapple"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_thom.png");}
+            if (self.index = 12) { crop_type <- "Mít-Jackfruit"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_mit.png");}
+            if (self.index = 13) { crop_type <- "Tôm-Shrimp"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_tom su.png");}
+            if (self.index = 14) { crop_type <- "Chuối-Banana"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_banana.png"); }
+            if (self.index = 15) { crop_type <- "Cua-Crab"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/aquatic/icon_cua bien.png");}   
+            if (self.index = 16) { crop_type <- "Dừa-Coconut"; season_start <- 100; season_end <- 200; img <- image_file("../includes/images/crops/icon_coconut.png"); }      
             
             // Tạo crop trong vùng farm
 //            create crop {
@@ -224,11 +224,11 @@ species farm {
         }
         
         // Vị trí text crop_type phía trên
-		point text_pos <- location + {0, 50};	
+		point text_pos <- location + {0, 45};	
 		draw crop_type at: text_pos color: #black font: font("Arial", 15) anchor: #center;
 		
 		// Vị trí salinity phía dưới crop_type
-		point sal_pos <- location + {0, 93};
+		point sal_pos <- location + {0, 90};
 		draw "Sal: " + round(salinity * 100) / 100 at: sal_pos color: #white font: font("Arial", 13) anchor: #center;
 	}
 }
