@@ -6,7 +6,7 @@
 */
 model AquaVR2
 
-import "CommonVR.gaml"
+import "AquaCommonVR.gaml"
 experiment multi_regions type: unity {
 
 //    init {
