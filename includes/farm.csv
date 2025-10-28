@@ -1,0 +1,18 @@
+index,crop_type,season_start,season_end,img
+0,Ổi-Guava,0,90,../includes/images/crops/icon_oi.png
+1,Bắp-Corn,0,90,../includes/images/crops/icon_bap.png
+2,Dâu tằm-Mulberry,30,120,../includes/images/crops/icon_dau tam.png
+3,Cá-Fish,60,150,../includes/images/aquatic/icon_ca chep.png
+4,Mía-Sugarcane,100,200,../includes/images/crops/icon_cay mia.png
+5,Lúa-Rice,100,200,../includes/images/crops/icon_lua.png
+6,Cá-Fish,100,200,../includes/images/aquatic/icon_ca dieu hong.png
+7,Dê-Goat,100,200,../includes/images/animals/icon_de.png
+8,Gà-Chicken,100,200,../includes/images/animals/icon_chicken.png
+9,Heo-Pig,100,200,../includes/images/animals/icon_pig.png
+10,Thanh Long-Dragon fruit,100,200,../includes/images/crops/icon_thanh long.png
+11,Khóm-Pineapple,100,200,../includes/images/crops/icon_thom.png
+12,Mít-Jackfruit,100,200,../includes/images/crops/icon_mit.png
+13,Tôm-Shrimp,100,200,../includes/images/aquatic/icon_tom su.png
+14,Chuối-Banana,100,200,../includes/images/crops/icon_banana.png
+15,Cua-Crab,100,200,../includes/images/aquatic/icon_cua bien.png
+16,Dừa-Coconut,100,200,../includes/images/crops/icon_coconut.png
