@@ -33,7 +33,7 @@ global {
 			GPlayLand[1].upstream<-GPlayLand[0];
 			GPlayLand[3].upstream<-GPlayLand[2];
 			
-			refill_rates <- [0.001,0.0001,0.001,0.0001];
+//			refill_rates <- [0.001,0.0001,0.001,0.0001];
 			
 		}
 	} 
@@ -44,12 +44,12 @@ species GPlayLand {
 	GPlayLand downstream;
 	int playerLand_ID;
 	string rootPID <- "";
-	map<string, Pumper> pumpers;
-	map<string, tree> trees;
+//	map<string, Pumper> pumpers;
+//	map<string, tree> trees;
 	int deadtrees <- 0;
-	map<string, freshwater> fresh_waters;
-	map<string, enemy> enemies;
-	map<string, enemy_spawner> enemy_spawners;
+//	map<string, freshwater> fresh_waters;
+//	map<string, enemy> enemies;
+//	map<string, enemy_spawner> enemy_spawners;
 	bool subside <- false;
 	int cntDem <- 0;
 	int numberWater <- 0;

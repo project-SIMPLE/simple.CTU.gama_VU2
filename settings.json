@@ -1,0 +1,10 @@
+{
+  "type": "json_settings",
+  "name": "VU2",
+  "splashscreen": "learning-packages/demo/splashscreen/demoOne.png",
+  "model_file_path": "./model/Session1.gaml",
+  "experiment_name": "Session1", 
+  "minimal_players": "0", 
+  "maximal_players": "4", 
+  "selected_monitoring": "gama_screen"
+}

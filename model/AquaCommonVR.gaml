@@ -107,6 +107,11 @@ species unity_linker parent: abstract_unity_linker {
             string crop_type_value <- myfarm.crop_type;
             int farm_id <- myfarm.index;
             ask myself {
+            	write ""+[
+                	"farmid"::farm_id,
+                    "salinity"::salinity_value,
+                    "crop_type"::crop_type_value
+                ];
                 do send_message([myself], [
                 	"farmid"::farm_id,
                     "salinity"::salinity_value,
