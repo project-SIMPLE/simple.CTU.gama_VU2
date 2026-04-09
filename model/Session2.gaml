@@ -2,7 +2,7 @@ model Session1
 
 import "./AquaCommonVR.gaml"
 import "./AquaGlobal.gaml"
-experiment Session1 autorun: true type: unity {
+experiment Session2 autorun: true type: unity {
 //minimal time between two simulation step
 	float minimum_cycle_duration <- 0.01;
 
@@ -43,6 +43,13 @@ experiment Session1 autorun: true type: unity {
 
 	}
 
+	//	point player_size <- {0.45, 0.45};
+	//	point p_size <- {0.75, 0.75};
+	//	point player_1_position <- {0.025, 0.025};
+	//	point p1_position <- {-1e2, 2e4};
+	//	point player_2_position <- {0.525, 0.025};
+	//	point player_3_position <- {0.025, 0.525};
+	//	point player_4_position <- {0.525, 0.525};
 	font f <- font("Helvetica", 16, #bold);
 	rgb c <- #white;
 	output synchronized: true {
@@ -52,7 +59,7 @@ experiment Session1 autorun: true type: unity {
 			graphics "image11" refresh: true {
 				draw rectangle(world.shape.width * 1.5, world.shape.height) texture: image_file("../includes/images/land/sceneland1.jpg");
 				float font_size <- (world.shape.width) / 500;
-				draw session at: {400, 1100} color: #white font: font("Arial", font_size * 2 #px) anchor: #top_left;
+				draw session at: {400, 1100} color: #white font: font("Arial", font_size * 1.5 #px) anchor: #top_left;
 				list<point>
 				positions <- [{21, 500}, {318, 500}, {600, 500}, {-4, 750}, {28, 1351}, {340, 750}, {591, 1351}, {16, 1642}, {318, 1642}, {607, 1642}, {1252, 450}, {1262, 643}, {1131, 915}, {1336, 876}, {1154, 1303}, {1346, 1277}, {1179, 1642}];
 				//draw farm[1].img at: positions[0] size: 50 #px;
@@ -63,17 +70,23 @@ experiment Session1 autorun: true type: unity {
 					draw "Sal: " + string(round(fr.salinity * 100) / 100) at: img_pos + {80, 80} color: #white font: font("Arial", font_size #px) anchor: #center;
 				}
 
-				draw "REMAINING TIME" at: {1800, 290} color: #white font: font("Arial", font_size * 2 #px) anchor: #top_left;
-				draw "" + unity_player[0].remainingtime at: {1900, 350} color: #white font: font("Arial", font_size * 2 #px) anchor: #center;
+				draw "REMAINING TIME" at: {1950, 290} color: #white font: font("Arial", font_size * 2 #px) anchor: #right_center;
+				draw "" + unity_player[0].remainingtime at: {1950, 350} color: #white font: font("Arial", font_size * 2 #px) anchor: #right_center;
 				//Show Rice
-				draw "" + unity_player[0].name_crop[0] + ": " + unity_player[0].quanlity_tree[0] at: {1800, 410} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
+				draw "" + unity_player[0].name_crop[0] + ": " + unity_player[0].quanlity_tree[0] at: {1950, 410} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
 				//Show Durian
-				draw "" + unity_player[0].name_crop[1] + ": " + unity_player[0].quanlity_tree[1] at: {1800, 470} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
+				draw "" + unity_player[0].name_crop[1] + ": " + unity_player[0].quanlity_tree[1] at: {1950, 470} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
 				//Show Shrimp
-				draw "" + unity_player[0].name_crop[2] + ": " + unity_player[0].quanlity_tree[2] at: {1800, 530} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
+				draw "" + unity_player[0].name_crop[2] + ": " + unity_player[0].quanlity_tree[2] at: {1950, 530} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
 			}
 
 			graphics "image12" refresh: true {
+			//draw circle(50) color: #blue at: {815,815, 0};				
+			//				draw circle(50) color: #green at: {0,0, 0};
+			//				draw circle(50) color: #blue at: {100,0, 0};
+			//				draw circle(50) color: #yellow at: {0,-100, 0};
+
+			//				write "unity_player[0].location: " + unity_player[0].location;
 			//				write "Players: " + length(unity_player);
 				ask unity_player {
 					draw circle(25) color: #red at: location;
@@ -85,52 +98,38 @@ experiment Session1 autorun: true type: unity {
 				//write "Location: "+ unity_player[0].location;
 				//write "Players: " + string(length(unity_player));
 
+
+				//			graphics "image12" refresh: true rotate: -90 size: {0.45, 0.45} position: {900,1122} {
+				//				draw circle(100) color: #blue at: {1122,900, 0};
+				//				
 			}
+			//agents "P1" value: unity_player[0]  transparency: 0.25;
 
 		}
 
-//		display "P2" type: 3d axes: false {
-//			graphics "image22" refresh: true {
-//				draw rectangle(world.shape.width * 1.5, world.shape.height) texture: image_file("../includes/images/land/sceneland1.jpg");
-//				float font_size <- (world.shape.width) / 500;
-//				draw session at: {400, 1100} color: #white font: font("Arial", font_size * 2 #px) anchor: #top_left;
-//				list<point>
-//				positions <- [{21, 500}, {318, 500}, {600, 500}, {-4, 750}, {28, 1351}, {340, 750}, {591, 1351}, {16, 1642}, {318, 1642}, {607, 1642}, {1252, 450}, {1262, 643}, {1131, 915}, {1336, 876}, {1154, 1303}, {1346, 1277}, {1179, 1642}];
-//				//draw farm[1].img at: positions[0] size: 50 #px;
-//				loop i from: 0 to: length(farm) - 1 {
-//					farm fr <- farm[i];
-//					point img_pos <- positions[i];
-//					draw fr.img at: img_pos size: font_size * 10 #px anchor: #center;
-//					draw "Sal: " + string(round(fr.salinity * 100) / 100) at: img_pos + {80, 80} color: #white font: font("Arial", font_size #px) anchor: #center;
-//				}
-//
-//				draw "REMAINING TIME" at: {1800, 290} color: #white font: font("Arial", font_size * 2 #px) anchor: #top_left;
-//				draw "" + unity_player[0].remainingtime at: {1900, 350} color: #white font: font("Arial", font_size * 2 #px) anchor: #center;
-//				//Show Rice
-//				draw "" + unity_player[0].name_crop[0] + ": " + unity_player[0].quanlity_tree[0] at: {1800, 410} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
-//				//Show Durian
-//				draw "" + unity_player[0].name_crop[1] + ": " + unity_player[0].quanlity_tree[1] at: {1800, 470} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
-//				//Show Shrimp
-//				draw "" + unity_player[0].name_crop[2] + ": " + unity_player[0].quanlity_tree[2] at: {1800, 530} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
-//			}
-//
-//			graphics "image12" refresh: true {
-//			//				write "Players: " + length(unity_player);
-//				ask unity_player {
-//					draw circle(25) color: #red at: location;
-//					draw player_perception_cone() border: #black color: rgb(color, 0.5);
-//				}
-//
-//				//Note
-//				//draw circle(25) color: #red at: unity_player[0].location;
-//				//write "Location: "+ unity_player[0].location;
-//				//write "Players: " + string(length(unity_player));
-//
-//			}
-//
-//		}
-
-
+		//		display "P2" type: 3d axes: false {
+		//			graphics "image22" refresh: true {
+		//				draw rectangle(world.shape.width * 1.5, world.shape.height) texture: image_file("../includes/images/land/sceneland1.jpg");
+		//				float font_size <- (world.shape.width) / 500;
+		//				draw session at: {400, 1100} color: #white font: font("Arial", font_size * 1.3 #px) anchor: #top_left;
+		//
+		//				//				ask farm {
+		//				//					draw img at: img_pos size: 50 #px anchor: #center;
+		//				//					draw "Sal: " + string(round(salinity * 100) / 100) at: sal_pos color: #white font: font("Arial", font_size #px) anchor: #center;
+		//				//				}
+		//				list<point>
+		//				positions <- [{21, 500}, {318, 500}, {600, 500}, {-4, 750}, {28, 1351}, {340, 750}, {591, 1351}, {16, 1642}, {318, 1642}, {607, 1642}, {1252, 450}, {1262, 643}, {1131, 915}, {1336, 876}, {1154, 1303}, {1346, 1277}, {1179, 1642}];
+		//				draw farm[1].img at: positions[0] size: 50 #px;
+		//				loop i from: 0 to: length(farm) - 1 {
+		//					farm fr <- farm[i];
+		//					point img_pos <- positions[i];
+		//					draw fr.img at: img_pos size: 50 #px anchor: #center;
+		//					draw "Sal: " + string(round(fr.salinity * 100) / 100) at: img_pos + {80, 80} color: #white font: font("Arial", font_size #px) anchor: #center;
+		//				}
+		//
+		//			}
+		//
+		//		}
 		//
 		//		display "P3" type: 3d axes: false {
 		//			graphics "image33" refresh: true {

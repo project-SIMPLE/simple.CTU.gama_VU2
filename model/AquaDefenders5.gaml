@@ -34,14 +34,15 @@ global {
 		create farm from: farm_file number: 17;
 		matrix data <- matrix(farm0_csv_file);
 		//loop on the matrix rows (skip the first header line)
-		loop i from: 1 to: data.rows - 1 { 
+		loop i from: 1 to: data.rows - 1 {
 			write int(data[0, i]);
 			ask (farm where (each.index = int(data[0, i]))) {
-				crop_type <- data[1, i]; 
-				season_start <- int(data[2, i]); 
-				season_end <- int(data[3, i]); 
+				crop_type <- data[1, i];
+				season_start <- int(data[2, i]);
+				season_end <- int(data[3, i]);
 				img <- image_file(data[4, i]);
 			}
+
 		}
 		//        create farm from: farm_file number: 17 {
 		//            if (self.index = 0) { crop_type <- "Ổi-Guava"; season_start <- 0; season_end <- 90; img <- image_file("../includes/images/crops/icon_oi.png");}
@@ -125,7 +126,7 @@ global {
 			input_water <- 0.05; // Mùa khô: nước ngọt nhỏ
 		}
 
-		write input_water;
+		//write input_water;
 		input_salt_water <- total_input - input_water;
 		ask source_fresh_cells {
 			freshwater <- freshwater + input_water;
@@ -143,7 +144,7 @@ global {
 
 	// Lan truyền nước ngọt + mặn
 	reflex diffusion {
-		write month(current_date);
+		write "Month: "+month(current_date);
 		ask cell {
 			do flow;
 			do update_color;
@@ -224,6 +225,8 @@ species farm {
 	int season_start;
 	int season_end;
 	float salinity init: 0.0;
+	point img_pos;
+	point sal_pos;
 
 	// Cập nhật salinity dựa trên cell overlapping
 	action update_salinity {
@@ -238,7 +241,7 @@ species farm {
 		draw shape color: #green border: #darkgreen;
 
 		// Vị trí image
-		point img_pos <- location + {0, -50};
+		img_pos <- location + {0, -50};
 		if (img != nil) {
 			draw img at: img_pos size: 50 #px anchor: #center;
 		}
@@ -248,8 +251,15 @@ species farm {
 		draw crop_type at: text_pos color: #black font: font("Arial", 15) anchor: #center;
 
 		// Vị trí salinity phía dưới crop_type
-		point sal_pos <- location + {0, 90};
+		sal_pos <- location + {0, 90};
 		draw "Sal: " + round(salinity * 100) / 100 at: sal_pos color: #white font: font("Arial", 13) anchor: #center;
+	}
+
+	aspect visual {
+		img_pos <- location + {0, -50};
+		draw img at: img_pos size: 50 #px anchor: #center;
+		sal_pos <- location + {0, 90};
+		draw "Sal: " + string(round(salinity * 100) / 100) at: sal_pos color: #white font: font("Arial", 13 #px) anchor: #center;
 	}
 
 }
