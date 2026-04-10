@@ -17,7 +17,7 @@ global {
 global {
 // Define update_salinity_refresh_rate if not present in Global.gaml
 	float update_salinity_refresh_rate <- 10.0; // Refresh every 10 cycles (adjustable)
-
+	int pump <- 0;
 }
 
 species unity_linker parent: abstract_unity_linker {
@@ -115,7 +115,7 @@ species unity_linker parent: abstract_unity_linker {
 			string crop_type_value <- myfarm.crop_type;
 			int farm_id <- myfarm.index;
 			ask myself {
-				//write "" + ["farmid"::farm_id, "salinity"::salinity_value, "crop_type"::crop_type_value];
+			//write "" + ["farmid"::farm_id, "salinity"::salinity_value, "crop_type"::crop_type_value];
 				do send_message([myself], ["farmid"::farm_id, "salinity"::salinity_value, "crop_type"::crop_type_value]);
 			}
 
@@ -150,7 +150,7 @@ species unity_linker parent: abstract_unity_linker {
 		//Pl.myfarm.current_score <- max(0, score);
 		Pl.myfarm.crop_type <- "Lua";
 		Pl.remainingtime <- remaining_time;
-		write "name_tree: " + name_crop;
+		write "Name_tree: " + name_crop;
 		write "Life Tree: " + life_tree;
 		write "Quanlity: " + quanlity;
 		Pl.name_crop <- (string(name_crop) split_with ":");
@@ -159,9 +159,46 @@ species unity_linker parent: abstract_unity_linker {
 
 		//Pl.quanlity_tree <- (split(temp,";")) collect (int(each));
 		//Pl.quanlity_tree <- [1,2,3];
+		write "Pump: " + pump;
+	}
+
+	action move_create_pumper (string idP, string idwp, int x, int y) {
+		pump <- pump + 1;
+		point pt <- toGAMACoordinate(x, y);
+		pt <- pt + {-78, -130};
+		unity_player Pl <- player_agents[idP];
+		farm f <- Pl.myfarm;
+
+		// 1 Pumper
+
+		//		create Pumper number: 1 {
+		//			location <- pt;
+		//			_id <- idwp;
+		//			playerLand_ID <- idP;
+		//
+		//			// Gắn vào farm
+		//			f.pumpers <- f.pumpers + [self];
+		//		}
+
+		//write "Created Pumper at: " + pt;
+
+		//Nhieu Pumper
+		Pumper wp <- f.pumpers[idwp];
+		if (wp = nil) {
+			create Pumper number: 1 {
+				location <- pt;
+				_id <- idwp;
+				playerLand_ID <- idP;
+				f.pumpers[idwp] <- self;
+			}
+
+			//write "CREATE PUMPER: " + idwp;
+		} else {
+			wp.location <- pt;
+			//write "UPDATE PUMPER: " + idwp;
+		}
 
 	}
-	
 
 }
 
@@ -171,9 +208,6 @@ species unity_player parent: abstract_unity_player {
 	rgb color;
 	float cone_distance <- player_size;
 	float cone_amplitude <- 90.0;
-	//float player_rotation <- -90.0;
-	//float player_rotation <- 90.0;
-	//float player_rotation <- -90.0;
 	bool to_display <- false;
 	bool ready_to_start <- false;
 	bool finish_game <- false;

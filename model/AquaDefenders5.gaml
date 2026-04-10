@@ -144,7 +144,7 @@ global {
 
 	// Lan truyền nước ngọt + mặn
 	reflex diffusion {
-		write "Month: "+month(current_date);
+		write "Month: " + month(current_date);
 		ask cell {
 			do flow;
 			do update_color;
@@ -227,6 +227,8 @@ species farm {
 	float salinity init: 0.0;
 	point img_pos;
 	point sal_pos;
+	//list<Pumper> pumpers;
+	map<string, Pumper> pumpers <- [];
 
 	// Cập nhật salinity dựa trên cell overlapping
 	action update_salinity {
@@ -260,6 +262,18 @@ species farm {
 		draw img at: img_pos size: 50 #px anchor: #center;
 		sal_pos <- location + {0, 90};
 		draw "Sal: " + string(round(salinity * 100) / 100) at: sal_pos color: #white font: font("Arial", 13 #px) anchor: #center;
+	}
+
+}
+
+species Pumper {
+	string playerLand_ID;
+	string _id;
+
+	aspect default {
+		write "Pumper: id: " + _id + " playerLand_ID:" + playerLand_ID + " Location: " + location;
+		draw circle(25) color: #orange at: location;
+		draw image_file("../includes/images/equipment/Icon_tool_pumber.png") at: location size: 50#px anchor: #center;
 	}
 
 }
